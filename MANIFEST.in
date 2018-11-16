@@ -1,0 +1,2 @@
+include graphql_starwars/database.json
+include graphql_starwars/graphiql.html
