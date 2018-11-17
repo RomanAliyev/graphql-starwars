@@ -18,8 +18,7 @@ def application(environ, start_response):
                 variables=request_data.get("variables"),
                 operation_name=request_data.get("operationName"),
                 context={
-                    "user_id": "123",
-                    "key": "value"
+                    "user_id": "2001"
                 }
             ).to_dict()
             response_data = json.dumps(graphql_result).encode("utf8")

@@ -11,25 +11,31 @@ from graphql import (
 )
 from .model import (
     Human,
-    Droid
+    Droid,
+    Character
 )
 
 queryType = GraphQLObjectType(
     "Query",
     fields=lambda: {
+        "me": GraphQLField(
+            characterInterface,
+            resolver=lambda obj, info:
+                Character.find_one({"_id": info.context.get("user_id")}),
+        ),
         "human": GraphQLField(
             humanType,
             args={
                 "id": GraphQLArgument(GraphQLNonNull(GraphQLID))
             },
-            resolver=lambda obj, info, id: Human.find_one({"id": id}),
+            resolver=lambda obj, info, id: Human.find_one({"_id": id}),
         ),
         "droid": GraphQLField(
             droidType,
             args={
                 "id": GraphQLArgument(GraphQLNonNull(GraphQLID))
             },
-            resolver=lambda obj, info, id: Droid.find_one({"id": id}),
+            resolver=lambda obj, info, id: Droid.find_one({"_id": id}),
         ),
     },
 )
@@ -52,8 +58,7 @@ humanType = GraphQLObjectType(
         "name": GraphQLField(GraphQLString),
         "friends": GraphQLField(
             GraphQLList(characterInterface),
-            resolver=lambda obj, info:
-                Human.find_many({"id": obj.friends}) + Droid.find_many({"id": obj.friends}),
+            resolver=lambda obj, info: Character.find_many({"_id": obj.friends})
         ),
     },
     interfaces=[characterInterface],
@@ -66,8 +71,7 @@ droidType = GraphQLObjectType(
         "name": GraphQLField(GraphQLString),
         "friends": GraphQLField(
             GraphQLList(characterInterface),
-            resolver=lambda obj, info:
-                Human.find_many({"id": obj.friends}) + Droid.find_many({"id": obj.friends}),
+            resolver=lambda obj, info: Character.find_many({"_id": obj.friends}),
         ),
     },
     interfaces=[characterInterface],

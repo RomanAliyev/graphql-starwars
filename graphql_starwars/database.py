@@ -16,11 +16,7 @@ class DataBaseClient(object):
                 return False
         return True
 
-    def find_one(self, type_name, options):
-        result = self.find_many(type_name, options)
-        return result[0] if len(result) > 0 else None
-
-    def find_many(self, type_name, options):
+    def find(self, type_name, options):
         return list(
             filter(
                 lambda data: self._filter(data, options),
