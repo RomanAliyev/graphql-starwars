@@ -9,7 +9,7 @@ setuptools.setup(
     author="Roman Aliyev",
     description="Another GraphQL example with Star Wars data",
     packages=setuptools.find_packages(),
-    install_requires=["graphql-core"],
+    install_requires=["werkzeug", "graphql-core"],
     python_requires=">=3.6",
     long_description=long_description,
     long_description_content_type="text/markdown",
