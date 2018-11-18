@@ -1,3 +1,5 @@
+# GraphQL Star Wars
+
 Another GraphQL example with Star Wars data.
 
 ## Installation
